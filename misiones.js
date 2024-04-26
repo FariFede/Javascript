@@ -1,10 +1,9 @@
 /* mi heroe debe saber hacer misiones */
 
 class Mision {
-    constructor(tipo, solicitante, detalle) { // hay 2 tipos de misiones, podrian ser mas a futuro. necesitamos el solicitante y un campo detalle para calcular la recompensa
+    constructor(tipo, solicitante) { // hay 2 tipos de misiones, podrian ser mas a futuro. necesitamos el tipo y el solicitante
         this.tipo = tipo;
         this.solicitante = solicitante;
-        this.detalle = detalle;
     }
 
     quienSolicita() { // identifico al solicitante dentro de mi mision
@@ -12,7 +11,7 @@ class Mision {
     }
 
     esDificil() { // hay misiones normales y misiones dificiles, las cuales se dan en condiciones especificas de las subclases
-        return false;
+        return this.solicitante.charAt(0) === 'G';
     }                               
 
     puntos() { // en los puntos no unifique los criterios, pero al igual que en el metodo esDificil, podria hacerlo con las 2 existentes
@@ -23,13 +22,13 @@ class Mision {
 
 class MisionPrincesa extends Mision { // mision especifica de rescatar a una princesa
 
-    constructor(tipo, solicitante, custodia) {
-        super(tipo, solicitante, custodia);
+    constructor(tipo, solicitante) {
+        super(tipo, solicitante);
         this.custodia = custodia;
     }
 
     esDificil() {
-        return this.solicitante.charAt(0) === 'G'  &&
+        return super.esDificil()  &&
         (this.custodia === 4 || this.custodia === 5);
     }
 
@@ -41,13 +40,13 @@ class MisionPrincesa extends Mision { // mision especifica de rescatar a una pri
 
 class MisionObjeto extends Mision {
 
-    constructor(tipo, solicitante, distancia) {
-        super(tipo, solicitante, distancia);
+    constructor(tipo, solicitante) {
+        super(tipo, solicitante);
         this.distancia = distancia;
     }
 
     esDificil() {
-        return this.solicitante.charAt(0) === 'G'  &&
+        return super.esDificil()  &&
         (this.distancia > 100);
     }
 
