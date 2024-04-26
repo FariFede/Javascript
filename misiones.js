@@ -1,8 +1,7 @@
 /* mi heroe debe saber hacer misiones */
 
 class Mision {
-    constructor(tipo, solicitante) { // hay 2 tipos de misiones, podrian ser mas a futuro. necesitamos el tipo y el solicitante
-        this.tipo = tipo;
+    constructor(solicitante) {
         this.solicitante = solicitante;
     }
 
@@ -22,8 +21,8 @@ class Mision {
 
 class MisionPrincesa extends Mision { // mision especifica de rescatar a una princesa
 
-    constructor(tipo, solicitante) {
-        super(tipo, solicitante);
+    constructor(solicitante, custodia) {
+        super(solicitante);
         this.custodia = custodia;
     }
 
@@ -33,15 +32,15 @@ class MisionPrincesa extends Mision { // mision especifica de rescatar a una pri
     }
 
     puntos() {
-        return this.detalle * 2;
+        return this.custodia * 2;
     }
 }
 
 
 class MisionObjeto extends Mision {
 
-    constructor(tipo, solicitante) {
-        super(tipo, solicitante);
+    constructor(solicitante, distancia) {
+        super(solicitante);
         this.distancia = distancia;
     }
 
@@ -51,7 +50,7 @@ class MisionObjeto extends Mision {
     }
 
     puntos() {
-        return this.detalle <= 50 ? 10 : 5;
+        return this.distancia <= 50 ? 10 : 5;
     }
 }
 
@@ -76,7 +75,7 @@ class Heroe {
     }
 
     totalPuntos() { // suma de puntos de recompensa de la lista de misiones del heroe
-        return this.misiones().reduce((total, mision) => total + mision.puntos(), 0);
+        return this.misiones.reduce((total, mision) => total + mision.puntos(), 0);
     }
 }
 
@@ -84,8 +83,8 @@ class Heroe {
 
 const Shrek = new Heroe();
 
-Shrek.hacerMision(new MisionPrincesa('Princesa', 'Lord Farquaad', 5));
-Shrek.hacerMision(new MisionObjeto('Objeto', 'Gandalf', 120));
+Shrek.hacerMision(new MisionPrincesa('Lord Farquaad', 5));
+Shrek.hacerMision(new MisionObjeto('Gandalf', 120));
 
 /* misiones dificiles de Shrek */
 console.log('Misiones difíciles asignadas a Shrek:', Shrek.misionDificil());
