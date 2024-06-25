@@ -63,7 +63,7 @@ class Heroe {
     }
 
     hacerMision(mision) {
-        this.misiones.agregarMision(mision);
+        this.misiones.push(mision);
     }
 
     misionDificil() {
